@@ -5,7 +5,9 @@ class App extends React.Component {
       videos: [],
       currentVideo: exampleVideoData[0]
     };
+    // console.log(props);
   }
+
 
   onVideoEntryClick(video) {
     this.setState({
@@ -13,23 +15,17 @@ class App extends React.Component {
     });  
   }
 
-  
-
-  componentDidMount() {
-    this.youtubeSearch('');
-    this.props.searchYouTube({query: '', max: 5, key: YOUTUBE_API_KEY}, this.getYoutubeVideos.bind(this));
-  }
-
-  youtubeSearch(query) {
-    searchYouTube({query: query, max: 5, key: YOUTUBE_API_KEY}, this.getYoutubeVideos.bind(this));
-    this.props.searchYouTube({query: query, max: 5, key: YOUTUBE_API_KEY}, this.getYoutubeVideos.bind(this));
-  }
-
-  getYoutubeVideos(data) {
+  updateVideoState(data) {
     this.setState({videos: data});
   }
   
-  
+  componentDidMount() {
+    this.youtubeSearch('');
+  }
+
+  youtubeSearch(query) {
+    this.props.searchYouTube({query: query, max: 10, key: YOUTUBE_API_KEY}, this.updateVideoState.bind(this));
+  }
   
   render() {
     return (
