@@ -1,5 +1,4 @@
 var VideoPlayer = ({video}) => {
- 
   return (
     <div className="video-player">
       <div className="embed-responsive embed-responsive-16by9">

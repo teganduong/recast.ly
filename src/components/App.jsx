@@ -2,20 +2,41 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      videos: exampleVideoData,
+      videos: [],
       currentVideo: exampleVideoData[0]
     };
+
   }
 
+  onVideoEntryClick(video) {
+    this.setState({
+      currentVideo: video
+    });  
+  }
+
+  componentDidMount() {
+    this.getYoutubeVideos({key:YOUTUBE_API_KEY, query:'react', max:10 },() => {});
+  }
+  
+  getYoutubeVideos(options,callback) {
+    var data = searchYouTube(options,callback);
+    console.log(data);
+    this.setState({videos: data});
+  }
+  
+  
   render() {
     return (
     <div>
-      <Nav />
+      <Nav getYoutubeVideos = {this.getYoutubeVideos.bind(this)}/>
       <div className="col-md-7">
         <VideoPlayer video={this.state.currentVideo}/>
       </div>
       <div className="col-md-5">
-        <VideoList videos={this.state.videos} />
+        <VideoList 
+          videos={this.state.videos} 
+          onVideoEntryClick = {this.onVideoEntryClick.bind(this)}
+        />
       </div>
     </div>
     );

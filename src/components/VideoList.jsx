@@ -1,8 +1,9 @@
-var VideoList = ({videos}) => {
-  var videoEntries = videos.map( video => 
+var VideoList = ({videos, onVideoEntryClick}) => {
+  var videoEntries = videos.map(video => 
   <VideoListEntry 
-  key={video.etag}
-  video= {video}
+    key={video.etag}
+    video= {video}
+    onVideoEntryClick= {onVideoEntryClick}
   />
   );
 
