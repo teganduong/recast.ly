@@ -30,7 +30,7 @@ class App extends React.Component {
   render() {
     return (
     <div>
-      <Nav youtubeSearch = {this.youtubeSearch.bind(this)}/>
+      <Nav youtubeSearch = {_.debounce( this.youtubeSearch.bind(this), 500 )}/>
       <div className="col-md-7">
         <VideoPlayer video={this.state.currentVideo}/>
       </div>

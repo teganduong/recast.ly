@@ -1,7 +1,12 @@
 var Search = ({youtubeSearch}) => {
+  var onChangeFunction = function(event) {
+    
+    youtubeSearch(event.target.value);
+  
+  };
   return (
     <div className="search-bar form-inline">
-      <input className="form-control" type="text" onChange={ (event) => youtubeSearch(event.target.value) }/>
+      <input className="form-control" type="text" onChange={ onChangeFunction }/>
       <button className="btn hidden-sm-down" >
         <span className="glyphicon glyphicon-search"></span>
       </button>
