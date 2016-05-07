@@ -1,11 +1,15 @@
 var VideoList = ({videos, onVideoEntryClick}) => {
-  var videoEntries = videos.map(video => 
-  <VideoListEntry 
-    key={video.etag}
-    video= {video}
-    onVideoEntryClick= {onVideoEntryClick}
-  />
-  );
+  if (videos) {
+    var videoEntries = videos.map(video => 
+    <VideoListEntry 
+      key={video.etag}
+      video= {video}
+      onVideoEntryClick= {onVideoEntryClick}
+    />
+    );
+  } else {
+    videoEntries = '';
+  }
 
   return ( 
     <div className="video-list media">

@@ -14,15 +14,19 @@ class App extends React.Component {
     });  
   }
 
+ 
+
   componentDidMount() {
-    this.getYoutubeVideos({key:YOUTUBE_API_KEY, query:'react', max:10 },() => {});
+    // this.getYoutubeVideos({query:'react', max: 10, key:YOUTUBE_API_KEY}() => {});
+    this.getYoutubeVideos({query:'react', max: 10, key:YOUTUBE_API_KEY},() => {});
   }
-  
+
   getYoutubeVideos(options,callback) {
-    var data = searchYouTube(options,callback);
+    var data = window.searchYouTube(options,callback);
     console.log(data);
     this.setState({videos: data});
   }
+  
   
   
   render() {
