@@ -3,7 +3,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       videos: exampleVideoData,
-      currentVideo: null
+      currentVideo: exampleVideoData[0]
     };
   }
 
@@ -12,7 +12,7 @@ class App extends React.Component {
     <div>
       <Nav />
       <div className="col-md-7">
-        <VideoPlayer/>
+        <VideoPlayer video={this.state.currentVideo}/>
       </div>
       <div className="col-md-5">
         <VideoList videos={this.state.videos} />

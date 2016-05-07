@@ -1,6 +1,9 @@
 var VideoList = ({videos}) => {
   var videoEntries = videos.map( video => 
-  <VideoListEntry video= {video}/>
+  <VideoListEntry 
+  key={video.etag}
+  video= {video}
+  />
   );
 
   return ( 
