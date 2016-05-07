@@ -5,7 +5,6 @@ class App extends React.Component {
       videos: [],
       currentVideo: exampleVideoData[0]
     };
-
   }
 
   onVideoEntryClick(video) {
@@ -14,16 +13,19 @@ class App extends React.Component {
     });  
   }
 
- 
+  
 
   componentDidMount() {
-    // this.getYoutubeVideos({query:'react', max: 10, key:YOUTUBE_API_KEY}() => {});
-    this.getYoutubeVideos({query:'react', max: 10, key:YOUTUBE_API_KEY},() => {});
+    this.youtubeSearch('');
+    this.props.searchYouTube({query: '', max: 5, key: YOUTUBE_API_KEY}, this.getYoutubeVideos.bind(this));
   }
 
-  getYoutubeVideos(options,callback) {
-    var data = window.searchYouTube(options,callback);
-    console.log(data);
+  youtubeSearch(query) {
+    searchYouTube({query: query, max: 5, key: YOUTUBE_API_KEY}, this.getYoutubeVideos.bind(this));
+    this.props.searchYouTube({query: query, max: 5, key: YOUTUBE_API_KEY}, this.getYoutubeVideos.bind(this));
+  }
+
+  getYoutubeVideos(data) {
     this.setState({videos: data});
   }
   
@@ -32,7 +34,7 @@ class App extends React.Component {
   render() {
     return (
     <div>
-      <Nav getYoutubeVideos = {this.getYoutubeVideos.bind(this)}/>
+      <Nav youtubeSearch = {this.youtubeSearch.bind(this)}/>
       <div className="col-md-7">
         <VideoPlayer video={this.state.currentVideo}/>
       </div>
