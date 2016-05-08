@@ -1,4 +1,9 @@
 var Search = ({youtubeSearch}) => {
+//ES6 SHORTHAND SYNTAX
+//var props = {'a': 1, 'b': 2}
+//var {a,b} = props
+//a is now 1, b is now 2
+
   var onChangeFunction = function(event) {
     
     youtubeSearch(event.target.value);

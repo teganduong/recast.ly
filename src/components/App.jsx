@@ -3,7 +3,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       videos: [],
-      currentVideo: exampleVideoData[0]
+      currentVideo: exampleVideoData[0],
+      details: ''
     };
     // console.log(props);
   }
@@ -15,8 +16,14 @@ class App extends React.Component {
     });  
   }
 
-  updateVideoState(data) {
+  updateVideo(data) {
     this.setState({videos: data});
+  }
+
+  updateDetails(data) {
+    var details = data.snippet.description;
+    this.setState({details: details});
+    console.log('details', details);
   }
   
   componentDidMount() {
@@ -24,16 +31,26 @@ class App extends React.Component {
   }
 
   youtubeSearch(query) {
-    this.props.searchYouTube({query: query, max: 10, key: YOUTUBE_API_KEY}, this.updateVideoState.bind(this));
+    this.props.searchYouTube({query: query, max: 10, key: YOUTUBE_API_KEY}, this.updateVideo.bind(this));
+  }
+
+  singleVideoSearch() {
+    detailedVideoSearch({key: YOUTUBE_API_KEY, id: this.state.currentVideo.id.videoId}, this.updateDetails.bind(this));
   }
   
   render() {
     return (
     <div>
-      <Nav youtubeSearch = {_.debounce( this.youtubeSearch.bind(this), 500 )}/>
+      <Nav youtubeSearch = { _.debounce( this.youtubeSearch.bind(this), 500 )}/>
       <div className="col-md-7">
         <VideoPlayer video={this.state.currentVideo}/>
+        <VideoDetails 
+          video={this.state.currentVideo}
+          singleVideoSearch={this.singleVideoSearch.bind(this)}
+          details={this.state.details}
+        />
       </div>
+
       <div className="col-md-5">
         <VideoList 
           videos={this.state.videos} 

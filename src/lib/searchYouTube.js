@@ -14,6 +14,7 @@ var searchYouTube = (options, callback) => {
     cache: false,
     data: options,
     success: function(data) {
+      console.log('here is the data',data);
       callback(data.items);
     },
     error: function(xhr, status, err) {
